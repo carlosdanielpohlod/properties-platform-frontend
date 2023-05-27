@@ -1,6 +1,5 @@
-import Homepage from "./modules/pages/home/Homepage"
+import HomePage from "@/modules/pages/home/HomePage"
+
 export default function Index(){
-  return (
-    <Homepage></Homepage>
-  )
+  return (<HomePage/>)
 }

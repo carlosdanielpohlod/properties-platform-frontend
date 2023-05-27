@@ -1,0 +1,10 @@
+.homePageContainer {
+  height: 1000px;
+  background-color: yellow  ;
+  display: grid;
+  grid-template-areas:
+    "topBar"
+    "postsFeed"
+    "footer"
+  ;
+}
