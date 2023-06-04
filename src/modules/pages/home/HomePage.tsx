@@ -8,7 +8,7 @@ const HomePage: React.FC  = () => {
     <div className={styles.homePageContainer}>
       <TopBar></TopBar>
       <PostsFeed></PostsFeed>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   )
 }
