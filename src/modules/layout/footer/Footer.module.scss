@@ -1,4 +1,7 @@
 .footerContainer {
-  background-color: red;
+  border-radius: 10px;
+  background-color: #EDEADE;
   grid-area: footer;
+  margin: 5px;
+  box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.66);
 }

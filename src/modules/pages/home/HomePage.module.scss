@@ -1,12 +1,12 @@
 .homePageContainer {
-  background-color: yellow  ;
+  background-color: #EDEADE;
   display: grid;
   grid-template-areas:
     "topBar"
     "postsFeed"
     "footer"
   ;
-  grid-template-rows: minmax(0, 1fr) minmax(0, auto) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1.5fr) minmax(0, auto) minmax(0, 1fr);
   min-height: 100vh;
   overflow: auto;
 }
