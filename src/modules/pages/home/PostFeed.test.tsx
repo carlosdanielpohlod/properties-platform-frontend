@@ -21,7 +21,7 @@ describe('PostsFeed', () => {
     mockUseFeedPosts()
   })
 
-  it('should render', () => {
+  it('render the component', () => {
     const { container } = render(<PostsFeed />)
     expect(container).toBeInTheDocument()
   })
