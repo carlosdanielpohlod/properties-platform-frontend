@@ -1,9 +1,10 @@
 import { useFeedPosts } from "../../posts/hooks/useFeedPosts"
-import { render } from "@testing-library/react"
+import { render, screen, fireEvent } from "@testing-library/react"
 import PostsFeed from "./PostsFeed"
 import postSample from "../../../../tests/__mocks__/post"
 
 jest.mock('@/modules/posts/hooks/useFeedPosts')
+const setPage = jest.fn()
 
 const mockUseFeedPosts = () => {
   const mockedHook = useFeedPosts as jest.MockedFn<typeof useFeedPosts>
@@ -11,8 +12,8 @@ const mockUseFeedPosts = () => {
   mockedHook.mockReturnValue({
     page: 1,
     posts: [postSample],
-    setPage: jest.fn(),
-    pagesCount: 1
+    setPage: setPage,
+    pagesCount: 2
   })
 }
 
@@ -21,16 +22,35 @@ describe('PostsFeed', () => {
     mockUseFeedPosts()
   })
 
-  it('render the component', () => {
-    const { container } = render(<PostsFeed />)
-    expect(container).toBeInTheDocument()
+
+  it('render title', () => {
+    render(<PostsFeed />)
+
+    expect(screen.getByText(/casa de praia em bauneario/i)).toBeInTheDocument()
   })
 
-  it('render post properties', () => {
-    const { container } = render(<PostsFeed />)
+  it('render description', () => {
+    render(<PostsFeed></PostsFeed>)
 
-    expect(container.querySelector('.MuiCardHeader-title')?.textContent).toBe(postSample.title)
-    expect(container.querySelector('.MuiCardHeader-subheader')?.textContent).toBe(String(new Date(postSample.created_at).toLocaleDateString("pt-BR")))
-    expect(container.querySelector('.MuiCardContent-root')?.textContent).toBe(postSample.description)
+    expect(screen.getByText(/descrição aqui/i)).toBeInTheDocument()
+  })
+
+  it('render pagination elements', () => {
+    render(<PostsFeed></PostsFeed>)
+
+    expect(screen.getByRole('button', { name: /page 1/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /page 2/i })).toBeInTheDocument()
+  })
+
+  describe('when click on pagination button', () => {
+    it('calls setPage', () => {
+      render(<PostsFeed></PostsFeed>)
+
+      const button = screen.getByRole('button', { name: /page 1/i })
+
+      fireEvent.click(button)
+
+      expect(setPage).toHaveBeenCalledWith(1)
+    })
   })
 })
