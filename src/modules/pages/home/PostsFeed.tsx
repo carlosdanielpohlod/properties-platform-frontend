@@ -1,19 +1,26 @@
 import React from "react";
 import styles from './PostsFeed.module.scss'
-import Post from './Post/Post'
-import { fetchPosts } from "@/modules/posts/infraestruture/fetchPosts";
-import { setPosts, posts } from "@/modules/posts/providers/PostsProvider"
+import { FeedPagination } from "./FeedPagination";
+import Post from "@/modules/pages/home/Post/Post";
+import {Post as PostType} from "@/modules/posts/domain/Post"
+
+import { useFeedPosts } from "@/modules/posts/hooks/useFeedPosts";
 
 const PostsFeed: React.FC  = () => {
-  async function findFeedPosts() {
-    await fetchPosts({page: 1, perPage: 10})
-  }
+  const {posts} = useFeedPosts();
 
-  setPosts
   return (
+    <>
     <div className={styles.postsFeedContainer}>
+      {
+        posts?.map((post: PostType ) => {
+          return <Post key={post.id} data={post}></Post>
+        })
+      }
 
     </div>
+    <FeedPagination ></FeedPagination>
+    </>
   )
 }
 
